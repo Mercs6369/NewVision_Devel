@@ -20,6 +20,7 @@ public class Robot extends TimedRobot {
    */
 
   PhotonCamera camera = new PhotonCamera("photonvision");
+  boolean hasTargets;
 
   @Override
   public void robotInit() {}
@@ -37,7 +38,18 @@ public class Robot extends TimedRobot {
   public void teleopInit() {}
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    var result = camera.getLatestResult();
+    if(result.hasTargets()) {
+      var target = result.getBestTarget();
+      System.out.print("Pitch :");
+      System.out.print(target.getPitch());
+      System.out.print("  Yaw: ");
+      System.out.print(target.getYaw());
+      System.out.print("  Area: ");
+      System.out.print(target.getArea());
+    }
+  }
 
   @Override
   public void disabledInit() {}
